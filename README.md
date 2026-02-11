@@ -1,2 +1,2 @@
 # ProCESS_RNA
-RNA Integration in ProCESS
+RNA integration in ProCESS
