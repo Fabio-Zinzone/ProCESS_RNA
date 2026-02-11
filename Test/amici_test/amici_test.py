@@ -221,7 +221,7 @@ for pid in true_params.keys():
 
 df_final = pd.DataFrame(final_data)
 df_final.to_csv(os.path.join(output_folder, "final.csv"), index=False)
-print(f"\n   ANALYSIS COMPLETED. Data saved in '{output_folder}/final.csv'.")           # "final" saving
+print(f"\n   ANALYSIS COMPLETED. Data saved in '{output_folder}/final.csv'.")           # save final file
 print()
 
 stop = time.time()
