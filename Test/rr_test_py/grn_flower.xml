@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v3.1.0 with libSBML version 5.20.5. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model metaid="grn_flower" id="grn_flower">
+    <listOfCompartments>
+      <compartment id="c" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="m_E1" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="p_E1" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="m_COL1a" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="p_COL1a" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="m_FT4" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="p_FT4" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="m_FT2a" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="p_FT2a" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="m_AP1a" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+      <species id="p_AP1a" compartment="c" initialAmount="0" hasOnlySubstanceUnits="true" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="alpha_basal_1" value="0.01" constant="true"/>
+      <parameter id="beta_21" value="1" constant="true"/>
+      <parameter id="K_21" value="0.5" constant="true"/>
+      <parameter id="n_21" value="2" constant="true"/>
+      <parameter id="delta_m1" value="0.1" constant="true"/>
+      <parameter id="alpha_basal_2" value="0.01" constant="true"/>
+      <parameter id="beta_12" value="1" constant="true"/>
+      <parameter id="K_12" value="0.5" constant="true"/>
+      <parameter id="n_12" value="2" constant="true"/>
+      <parameter id="delta_m2" value="0.1" constant="true"/>
+      <parameter id="alpha_basal_3" value="0.01" constant="true"/>
+      <parameter id="beta_13" value="1" constant="true"/>
+      <parameter id="K_13" value="0.5" constant="true"/>
+      <parameter id="n_13" value="2" constant="true"/>
+      <parameter id="beta_23" value="1" constant="true"/>
+      <parameter id="K_23" value="0.5" constant="true"/>
+      <parameter id="n_23" value="2" constant="true"/>
+      <parameter id="delta_m3" value="0.1" constant="true"/>
+      <parameter id="alpha_max_4" value="0.5" constant="true"/>
+      <parameter id="K_24" value="0.5" constant="true"/>
+      <parameter id="n_24" value="2" constant="true"/>
+      <parameter id="delta_m4" value="0.2" constant="true"/>
+      <parameter id="alpha_basal_5" value="0.01" constant="true"/>
+      <parameter id="beta_45" value="1" constant="true"/>
+      <parameter id="K_45" value="0.5" constant="true"/>
+      <parameter id="n_45" value="2" constant="true"/>
+      <parameter id="beta_35" value="1" constant="true"/>
+      <parameter id="K_35" value="0.5" constant="true"/>
+      <parameter id="n_35" value="2" constant="true"/>
+      <parameter id="delta_m5" value="0.1" constant="true"/>
+      <parameter id="beta_p1" value="0.2" constant="true"/>
+      <parameter id="gamma_p1" value="0.05" constant="true"/>
+      <parameter id="beta_p2" value="0.3" constant="true"/>
+      <parameter id="gamma_p2" value="0.06" constant="true"/>
+      <parameter id="beta_p3" value="0.2" constant="true"/>
+      <parameter id="gamma_p3" value="0.04" constant="true"/>
+      <parameter id="beta_p4" value="0.1" constant="true"/>
+      <parameter id="gamma_p4" value="0.05" constant="true"/>
+      <parameter id="beta_p5" value="0.4" constant="true"/>
+      <parameter id="gamma_p5" value="0.05" constant="true"/>
+      <parameter id="R_AP1a_prod" constant="false"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="R_AP1a_prod">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <ci> alpha_basal_5 </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_45 </ci>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_FT2a </ci>
+                      <ci> K_45 </ci>
+                    </apply>
+                    <ci> n_45 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_FT2a </ci>
+                      <ci> K_45 </ci>
+                    </apply>
+                    <ci> n_45 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta_35 </ci>
+                <apply>
+                  <power/>
+                  <apply>
+                    <divide/>
+                    <ci> p_FT4 </ci>
+                    <ci> K_35 </ci>
+                  </apply>
+                  <ci> n_35 </ci>
+                </apply>
+              </apply>
+              <apply>
+                <plus/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <power/>
+                  <apply>
+                    <divide/>
+                    <ci> p_FT4 </ci>
+                    <ci> K_35 </ci>
+                  </apply>
+                  <ci> n_35 </ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="m_E1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <ci> alpha_basal_1 </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_21 </ci>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_COL1a </ci>
+                      <ci> K_21 </ci>
+                    </apply>
+                    <ci> n_21 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_COL1a </ci>
+                      <ci> K_21 </ci>
+                    </apply>
+                    <ci> n_21 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_m1 </ci>
+              <ci> m_E1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p_E1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> beta_p1 </ci>
+              <ci> m_E1 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_p1 </ci>
+              <ci> p_E1 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="m_COL1a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <ci> alpha_basal_2 </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_12 </ci>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_E1 </ci>
+                      <ci> K_12 </ci>
+                    </apply>
+                    <ci> n_12 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_E1 </ci>
+                      <ci> K_12 </ci>
+                    </apply>
+                    <ci> n_12 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_m2 </ci>
+              <ci> m_COL1a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p_COL1a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> beta_p2 </ci>
+              <ci> m_COL1a </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_p2 </ci>
+              <ci> p_COL1a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="m_FT4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <plus/>
+              <ci> alpha_basal_3 </ci>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_13 </ci>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_E1 </ci>
+                      <ci> K_13 </ci>
+                    </apply>
+                    <ci> n_13 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_E1 </ci>
+                      <ci> K_13 </ci>
+                    </apply>
+                    <ci> n_13 </ci>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <divide/>
+                <apply>
+                  <times/>
+                  <ci> beta_23 </ci>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_COL1a </ci>
+                      <ci> K_23 </ci>
+                    </apply>
+                    <ci> n_23 </ci>
+                  </apply>
+                </apply>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_COL1a </ci>
+                      <ci> K_23 </ci>
+                    </apply>
+                    <ci> n_23 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_m3 </ci>
+              <ci> m_FT4 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p_FT4">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> beta_p3 </ci>
+              <ci> m_FT4 </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_p3 </ci>
+              <ci> p_FT4 </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="m_FT2a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> alpha_max_4 </ci>
+              <apply>
+                <divide/>
+                <cn type="integer"> 1 </cn>
+                <apply>
+                  <plus/>
+                  <cn type="integer"> 1 </cn>
+                  <apply>
+                    <power/>
+                    <apply>
+                      <divide/>
+                      <ci> p_COL1a </ci>
+                      <ci> K_24 </ci>
+                    </apply>
+                    <ci> n_24 </ci>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_m4 </ci>
+              <ci> m_FT2a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p_FT2a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> beta_p4 </ci>
+              <ci> m_FT2a </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_p4 </ci>
+              <ci> p_FT2a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="m_AP1a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <max/>
+              <cn type="integer"> 0 </cn>
+              <ci> R_AP1a_prod </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> delta_m5 </ci>
+              <ci> m_AP1a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="p_AP1a">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <times/>
+              <ci> beta_p5 </ci>
+              <ci> m_AP1a </ci>
+            </apply>
+            <apply>
+              <times/>
+              <ci> gamma_p5 </ci>
+              <ci> p_AP1a </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>

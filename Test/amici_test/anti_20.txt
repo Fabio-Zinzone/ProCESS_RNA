@@ -1,0 +1,111 @@
+// MODELLO SINTETICO 20 GENI (Topology: Pulse, Oscillator, Logic, Toggle, Cascade)
+// Nomenclatura: K = Tasso Produzione (ex V), h = Semi-saturazione (ex K)
+
+// --- PARAMETRI GLOBALI FISSI ---
+n = 2.0; 
+lam = 0.5;
+
+// --- MODULO 1: SENSORE (Pulse Generator + Feedback Globale) ---
+// G0: Input Costante
+G0 = 5.0; K0 = 2.0;
+prod_G0: => G0; K0
+deg_G0: G0 => ; lam * G0
+
+// G1: Attivato da G0, Represso da G19 (Global Feedback)
+G1 = 1.0; K1 = 5.0; h1_0 = 2.0; h1_19 = 2.0;
+prod_G1: => G1; K1 * (G0^n / (h1_0^n + G0^n)) * (h1_19^n / (h1_19^n + G19^n))
+deg_G1: G1 => ; lam * G1
+
+// G3: Braccio inibitorio (Ritardo)
+G3 = 0.5; K3 = 4.0; h3_1 = 1.5;
+prod_G3: => G3; K3 * G1^n / (h3_1^n + G1^n)
+deg_G3: G3 => ; lam * G3
+
+// G2: Output Pulsante (Attivato da G1, Represso da G3)
+G2 = 0.5; K2 = 8.0; h2_1 = 1.0; h2_3 = 1.0;
+prod_G2: => G2; K2 * (G1^n / (h2_1^n + G1^n)) * (h2_3^n / (h2_3^n + G3^n))
+deg_G2: G2 => ; lam * G2
+
+// --- MODULO 2: OSCILLATORE (Repressilator + Input G2) ---
+// G4: Represso da G6, Attivato da G2
+G4 = 2.0; K4 = 5.0; K4_in = 2.0; h4_6 = 1.0; h4_2 = 3.0;
+prod_G4: => G4; (K4 * h4_6^n / (h4_6^n + G6^n)) + (K4_in * G2^n / (h4_2^n + G2^n))
+deg_G4: G4 => ; lam * G4
+
+// G5: Represso da G4
+G5 = 5.0; K5 = 5.0; h5_4 = 1.0;
+prod_G5: => G5; K5 * h5_4^n / (h5_4^n + G4^n)
+deg_G5: G5 => ; lam * G5
+
+// G6: Represso da G5
+G6 = 1.0; K6 = 5.0; h6_5 = 1.0;
+prod_G6: => G6; K6 * h6_5^n / (h6_5^n + G5^n)
+deg_G6: G6 => ; lam * G6
+
+// --- MODULO 3: STRESS & LOGICA (AND Gate) ---
+// G9: Input Stress
+G9 = 1.0; K9 = 1.5;
+prod_G9: => G9; K9
+deg_G9: G9 => ; lam * G9
+
+// G10: Trasduttore
+G10 = 0.5; K10 = 3.0; h10_9 = 1.0;
+prod_G10: => G10; K10 * G9^n / (h10_9^n + G9^n)
+deg_G10: G10 => ; lam * G10
+
+// G11: Accumulatore
+G11 = 0.5; K11 = 3.0; h11_10 = 1.0;
+prod_G11: => G11; K11 * G10^n / (h11_10^n + G10^n)
+deg_G11: G11 => ; lam * G11
+
+// G12: AND GATE (G2 AND G11)
+G12 = 0.1; K12 = 6.0; h12_2 = 2.0; h12_11 = 2.0;
+prod_G12: => G12; K12 * (G2^n / (h12_2^n + G2^n)) * (G11^n / (h12_11^n + G11^n))
+deg_G12: G12 => ; lam * G12
+
+// --- MODULO 4: TOGGLE SWITCH (Decisione) ---
+// G7: Represso da G8, Spinto da G5
+G7 = 0.5; K7 = 4.0; K7_in = 2.0; h7_8 = 1.0; h7_5 = 2.0;
+prod_G7: => G7; (K7 * h7_8^n / (h7_8^n + G8^n)) + (K7_in * G5^n / (h7_5^n + G5^n))
+deg_G7: G7 => ; lam * G7
+
+// G8: Represso da G7, Spinto da G12
+G8 = 4.0; K8 = 4.0; K8_in = 3.0; h8_7 = 1.0; h8_12 = 2.0;
+prod_G8: => G8; (K8 * h8_7^n / (h8_7^n + G7^n)) + (K8_in * G12^n / (h8_12^n + G12^n))
+deg_G8: G8 => ; lam * G8
+
+// --- MODULO 5: OUTPUT CASCADE ---
+// G13: Input dal Switch (G8)
+G13 = 0.2; K13 = 5.0; h13_8 = 1.5;
+prod_G13: => G13; K13 * G8^n / (h13_8^n + G8^n)
+deg_G13: G13 => ; lam * G13
+
+// G14
+G14 = 0.2; K14 = 4.0; h14_13 = 1.5;
+prod_G14: => G14; K14 * G13^n / (h14_13^n + G13^n)
+deg_G14: G14 => ; lam * G14
+
+// G15
+G15 = 0.2; K15 = 4.0; h15_14 = 1.5;
+prod_G15: => G15; K15 * G14^n / (h15_14^n + G14^n)
+deg_G15: G15 => ; lam * G15
+
+// G16: AND GATE (G14 e Oscillatore G4)
+G16 = 0.2; K16 = 4.0; h16_14 = 1.5; h16_4 = 4.0;
+prod_G16: => G16; K16 * (G14^n / (h16_14^n + G14^n)) * (G4^n / (h16_4^n + G4^n))
+deg_G16: G16 => ; lam * G16
+
+// G17
+G17 = 0.2; K17 = 4.0; h17_15 = 1.5;
+prod_G17: => G17; K17 * G15^n / (h17_15^n + G15^n)
+deg_G17: G17 => ; lam * G17
+
+// G18
+G18 = 0.2; K18 = 4.0; h18_17 = 1.5;
+prod_G18: => G18; K18 * G17^n / (h18_17^n + G17^n)
+deg_G18: G18 => ; lam * G18
+
+// G19: Terminatore (Somma OR: G18 + G16)
+G19 = 0.2; K19a = 5.0; K19b = 5.0; h19_18 = 1.5; h19_16 = 1.5;
+prod_G19: => G19; (K19a * G18^n / (h19_18^n + G18^n)) + (K19b * G16^n / (h19_16^n + G16^n))
+deg_G19: G19 => ; lam * G19

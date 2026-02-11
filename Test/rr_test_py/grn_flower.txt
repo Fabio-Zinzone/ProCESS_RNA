@@ -1,0 +1,79 @@
+model grn_flower()
+
+compartment c = 1;
+
+// Species
+substanceOnly species m_E1 in c = 0;
+substanceOnly species p_E1 in c = 0;
+substanceOnly species m_COL1a in c = 0;
+substanceOnly species p_COL1a in c = 0;
+substanceOnly species m_FT4 in c = 0;
+substanceOnly species p_FT4 in c = 0;
+substanceOnly species m_FT2a in c = 0;
+substanceOnly species p_FT2a in c = 0;
+substanceOnly species m_AP1a in c = 0;
+substanceOnly species p_AP1a in c = 0;
+
+// Parameters: mRNA 1 (E1)
+alpha_basal_1 = 0.01;
+beta_21 = 1.0;
+K_21 = 0.5;
+n_21 = 2;
+delta_m1 = 0.1;
+
+// Parameters: mRNA 2 (COL1a)
+alpha_basal_2 = 0.01;
+beta_12 = 1.0;
+K_12 = 0.5;
+n_12 = 2;
+delta_m2 = 0.1;
+
+// Parameters: mRNA 3 (FT4)
+alpha_basal_3 = 0.01;
+beta_13 = 1.0;
+K_13 = 0.5;
+n_13 = 2;
+beta_23 = 1.0;
+K_23 = 0.5;
+n_23 = 2;
+delta_m3 = 0.1;
+
+// Parameters: mRNA 4 (FT2a)
+alpha_max_4 = 0.5; 
+K_24 = 0.5;
+n_24 = 2;
+delta_m4 = 0.2; 
+
+// Parameters: mRNA 5 (AP1a)
+alpha_basal_5 = 0.01;
+beta_45 = 1.0;
+K_45 = 0.5;
+n_45 = 2;
+beta_35 = 1.0;
+K_35 = 0.5;
+n_35 = 2;
+delta_m5 = 0.1;
+
+// Parameters: Proteins
+beta_p1 = 0.2; gamma_p1 = 0.05;
+beta_p2 = 0.3; gamma_p2 = 0.06;
+beta_p3 = 0.2; gamma_p3 = 0.04;
+beta_p4 = 0.1; gamma_p4 = 0.05;
+beta_p5 = 0.4; gamma_p5 = 0.05;
+
+// Equations: mRNA
+m_E1' = alpha_basal_1 + beta_21 * ((p_COL1a/K_21)^n_21) / (1 + (p_COL1a/K_21)^n_21) - delta_m1 * m_E1;
+m_COL1a' = alpha_basal_2 + beta_12 * ((p_E1/K_12)^n_12) / (1 + (p_E1/K_12)^n_12) - delta_m2 * m_COL1a;
+m_FT4' = alpha_basal_3 + beta_13 * ((p_E1/K_13)^n_13) / (1 + (p_E1/K_13)^n_13) + beta_23 * ((p_COL1a/K_23)^n_23) / (1 + (p_COL1a/K_23)^n_23) - delta_m3 * m_FT4;
+m_FT2a' = alpha_max_4 * (1 / (1 + (p_COL1a/K_24)^n_24)) - delta_m4 * m_FT2a;
+R_AP1a_prod = alpha_basal_5 + beta_45 * ((p_FT2a/K_45)^n_45) / (1 + (p_FT2a/K_45)^n_45) - beta_35 * ((p_FT4/K_35)^n_35) / (1 + (p_FT4/K_35)^n_35);
+m_AP1a' = max(0, R_AP1a_prod) - delta_m5 * m_AP1a;
+
+// Equations: Proteins
+p_E1' = beta_p1 * m_E1 - gamma_p1 * p_E1;
+p_COL1a' = beta_p2 * m_COL1a - gamma_p2 * p_COL1a;
+p_FT4' = beta_p3 * m_FT4 - gamma_p3 * p_FT4;
+p_FT2a' = beta_p4 * m_FT2a - gamma_p4 * p_FT2a;
+p_AP1a' = beta_p5 * m_AP1a - gamma_p5 * p_AP1a;
+
+end

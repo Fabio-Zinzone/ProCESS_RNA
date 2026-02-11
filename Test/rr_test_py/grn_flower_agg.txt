@@ -1,0 +1,87 @@
+// Created by libAntimony v3.1.0
+model *grn_flower()
+
+  // Compartments and Species:
+  compartment c;
+  substanceOnly species $m_E1 in c, $p_COL1a in c, $p_E1 in c, $m_COL1a in c;
+  substanceOnly species $m_FT4 in c, $p_FT4 in c, $m_FT2a in c, $p_FT2a in c;
+  substanceOnly species $m_AP1a in c, $p_AP1a in c;
+
+  // Rate Rules:
+  m_E1' = alpha_basal_1 + beta_21*(p_COL1a/K_21)^n_21/(1 + (p_COL1a/K_21)^n_21) - delta_m1*m_E1;
+  p_COL1a' = beta_p2*m_COL1a - gamma_p2*p_COL1a;
+  p_E1' = beta_p1*m_E1 - gamma_p1*p_E1;
+  m_COL1a' = alpha_basal_2 + beta_12*(p_E1/K_12)^n_12/(1 + (p_E1/K_12)^n_12) - delta_m2*m_COL1a;
+  m_FT4' = alpha_basal_3 + beta_13*(p_E1/K_13)^n_13/(1 + (p_E1/K_13)^n_13) + beta_23*(p_COL1a/K_23)^n_23/(1 + (p_COL1a/K_23)^n_23) - delta_m3*m_FT4;
+  p_FT4' = beta_p3*m_FT4 - gamma_p3*p_FT4;
+  m_FT2a' = alpha_max_4*(1/(1 + (p_COL1a/K_24)^n_24)) - delta_m4*m_FT2a;
+  p_FT2a' = beta_p4*m_FT2a - gamma_p4*p_FT2a;
+  m_AP1a' = max(0, R_AP1a_prod) - delta_m5*m_AP1a;
+  p_AP1a' = beta_p5*m_AP1a - gamma_p5*p_AP1a;
+
+  // Species initializations:
+  m_E1 = 6.36415037928601;
+  p_COL1a = 9.02813465038032;
+  p_E1 = 6.69126733223895;
+  m_COL1a = 6.17094897859833;
+  m_FT4 = 12.4433078578604;
+  p_FT4 = 13.2142075267743;
+  m_FT2a = 0.356021043774632;
+  p_FT2a = 1.88786460045342;
+  m_AP1a = 0.0917915000239982;
+  p_AP1a = 0.407260324786068;
+
+  // Compartment initializations:
+  c = 1;
+
+  // Variable initializations:
+  alpha_basal_1 = 0.01;
+  beta_21 = 1;
+  K_21 = 0.5;
+  n_21 = 2;
+  delta_m1 = 0.1;
+  beta_p1 = 0.2;
+  gamma_p1 = 0.05;
+  alpha_basal_2 = 0.01;
+  beta_12 = 1;
+  K_12 = 0.5;
+  n_12 = 2;
+  delta_m2 = 0.1;
+  beta_p2 = 0.3;
+  gamma_p2 = 0.06;
+  alpha_basal_3 = 0.01;
+  beta_13 = 1;
+  K_13 = 0.5;
+  n_13 = 2;
+  beta_23 = 1;
+  K_23 = 0.5;
+  n_23 = 2;
+  delta_m3 = 0.1;
+  beta_p3 = 0.2;
+  gamma_p3 = 0.04;
+  alpha_max_4 = 0.5;
+  K_24 = 0.5;
+  n_24 = 2;
+  delta_m4 = 0.2;
+  beta_p4 = 0.1;
+  gamma_p4 = 0.05;
+  R_AP1a_prod = 0.01;
+  delta_m5 = 0.1;
+  beta_p5 = 0.4;
+  gamma_p5 = 0.05;
+  alpha_basal_5 = 0.01;
+  beta_45 = 1;
+  K_45 = 0.5;
+  n_45 = 2;
+  beta_35 = 1;
+  K_35 = 0.5;
+  n_35 = 2;
+
+  // Other declarations:
+  var R_AP1a_prod;
+  const c, alpha_basal_1, beta_21, K_21, n_21, delta_m1, beta_p1, gamma_p1;
+  const alpha_basal_2, beta_12, K_12, n_12, delta_m2, beta_p2, gamma_p2, alpha_basal_3;
+  const beta_13, K_13, n_13, beta_23, K_23, n_23, delta_m3, beta_p3, gamma_p3;
+  const alpha_max_4, K_24, n_24, delta_m4, beta_p4, gamma_p4, delta_m5, beta_p5;
+  const gamma_p5, alpha_basal_5, beta_45, K_45, n_45, beta_35, K_35, n_35;
+end

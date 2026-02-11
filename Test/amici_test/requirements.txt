@@ -1,0 +1,7 @@
+numpy
+pandas
+matplotlib
+tellurium
+petab
+pypesto
+amici
