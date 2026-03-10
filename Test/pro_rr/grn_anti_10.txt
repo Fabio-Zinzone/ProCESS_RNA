@@ -1,0 +1,63 @@
+model grn_10()
+
+compartment c = 1;
+
+n = 2.0; 
+lam = 0.5;
+
+// G0
+substanceOnly species G0 in c = 5.0;
+K0 = 2.0;
+
+// G1
+substanceOnly species G1 in c = 1.0;
+K1 = 5.0; h1_0 = 2.0; h1_9 = 2.0;
+
+// G2
+substanceOnly species G2 in c = 0.5;
+K2 = 4.0; h2_1 = 1.5;
+
+// G3
+substanceOnly species G3 in c = 0.5;
+K3 = 8.0; h3_1 = 1.0; h3_2 = 1.0;
+
+// G4
+substanceOnly species G4 in c = 2.0;
+K4 = 5.0; K4_in = 2.0; h4_6 = 1.0; h4_3 = 3.0;
+
+// G5
+substanceOnly species G5 in c = 5.0;
+K5 = 5.0; h5_4 = 1.0;
+
+// G6
+substanceOnly species G6 in c = 1.0;
+K6 = 5.0; h6_5 = 1.0;
+
+// G7
+substanceOnly species G7 in c = 0.5;
+K7 = 4.0; K7_in = 2.0; h7_8 = 1.0; h7_5 = 2.0;
+
+// G8
+substanceOnly species G8 in c = 4.0;
+K8 = 4.0; K8_in = 3.0; h8_7 = 1.0; h8_6 = 2.0;
+
+// G9
+substanceOnly species G9 in c = 0.2;
+K9 = 5.0; h9_8 = 1.5;
+
+// ODE
+G0' = K0 - (lam * G0);
+G1' = K1 * ( (G0^n) / (h1_0^n + G0^n) ) * ( (h1_9^n) / (h1_9^n + G9^n) ) - (lam * G1);
+G2' = K2 * ( (G1^n) / (h2_1^n + G1^n) ) - (lam * G2);
+G3' = K3 * ( (G1^n) / (h3_1^n + G1^n) ) * ( (h3_2^n) / (h3_2^n + G2^n) ) - (lam * G3);
+
+G4' = (K4 * (h4_6^n / (h4_6^n + G6^n))) + (K4_in * (G3^n / (h4_3^n + G3^n))) - (lam * G4);
+G5' = K5 * (h5_4^n / (h5_4^n + G4^n)) - (lam * G5);
+G6' = K6 * (h6_5^n / (h6_5^n + G5^n)) - (lam * G6);
+
+G7' = (K7 * (h7_8^n / (h7_8^n + G8^n))) + (K7_in * (G5^n / (h7_5^n + G5^n))) - (lam * G7);
+G8' = (K8 * (h8_7^n / (h8_7^n + G7^n))) + (K8_in * (G6^n / (h8_6^n + G6^n))) - (lam * G8);
+
+G9' = K9 * ( (G8^n) / (h9_8^n + G8^n) ) - (lam * G9);
+
+end

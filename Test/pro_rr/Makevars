@@ -1,0 +1,3 @@
+PKG_CPPFLAGS = -I/opt/rr_cpp/roadrunner/include -I/opt/rr_cpp/antimony/include
+PKG_LIBS = -L/opt/rr_cpp/roadrunner/lib -lroadrunner -L/opt/rr_cpp/antimony/lib -lantimony
+CXX_STD = CXX17
