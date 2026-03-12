@@ -1,11 +1,16 @@
+suppressPackageStartupMessages({
 library(Rcpp)
 library(dplyr)
 library(ProCESS)
+})
+
+message("SIMULATION STARTED")
 
 start_time <- Sys.time()
-set.seed(0)
 
 sourceCpp("master.cpp")
+set.seed(0)
+set_cpp_seed(0)
 
 sim <- TissueSimulation()
 
@@ -36,6 +41,12 @@ tour <- get_label_tour(forest,
 while (!tour$done) {
   tour$step()
 }
+
+apply_poisson()
+results <- save_grn_matrix()
+#storage.mode(results)
+save_csv_matrix("count_matrix.csv")
+message("Count Matrix saved as CSV")
 
 end_time <- Sys.time()
 delta_time <- end_time - start_time

@@ -1,6 +1,9 @@
 #include "globals.h"
 
+using namespace Rcpp;
+
 NumericVector rr_evolution(NumericVector parent_state, Environment node) {
+  
   if (rrg == nullptr) stop("Roadrunner not initialized");
   
   double duration = (double)node["death_time"] - (double)node["birth_time"];
@@ -23,5 +26,17 @@ NumericVector rr_evolution(NumericVector parent_state, Environment node) {
   }
   
   final_state.names() = names;
+  
+  int cell_id = node["cell_id"];
+  bool is_leaf = node["is_leaf"];
+  
+  if (is_leaf) {
+    grn_results[cell_id] = Rcpp::as<std::vector<double>>(final_state);
+    
+    if (gene_names.empty()) {
+      gene_names = Rcpp::as<std::vector<std::string>>(names);
+    }
+  }
+  
   return final_state;
 }

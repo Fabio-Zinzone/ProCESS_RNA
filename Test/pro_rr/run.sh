@@ -3,6 +3,8 @@
 SIF_PATH="/home/hp/app_sif/process_rr_abc.sif"
 PROJECT_DIR=$(pwd)
 
+export APPTAINER_SILENT=1
+export SINGULARITY_SILENT=1
 export APPTAINERENV_R_MAKEVARS_USER="/mnt/Makevars"
 
 apptainer exec --cleanenv \
